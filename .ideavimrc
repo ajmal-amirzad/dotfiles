@@ -1,0 +1,237 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+let mapleader=" "
+
+set number relativenumber        " Enable hybrid line numbers
+set scrolloff=5                  " Keep 5 lines visible above/below cursor
+set incsearch                    " Dynamic search highlighting as you type
+set hlsearch                     " Highlight search matches
+set ignorecase                   " Case-insensitive search...
+set smartcase                    " ...unless capital letters are typed
+set showmode                     " Display current mode in status bar
+set showcmd                      " Show commands as they are being typed
+set clipboard+=unnamedplus       " Use IDE native clipboard handling and multi-line joining
+set ideajoin                     " Let IntelliJ handle joining lines intelligently
+set ideamarks                    " Make IntelliJ marks available through IdeaVim
+set idearefactormode=keep        " Keep IDE refactoring changes compatible with Vim motions
+set selection=inclusive           " Better visual mode selection boundary handling
+
+set which-key " Enable the which-key popup
+set notimeout
+
+let g:WhichKeyDesc_buffer                  = "<leader>b +buffer"
+let g:WhichKeyDesc_code                    = "<leader>c +code"
+let g:WhichKeyDesc_code_problems           = "<leader>cD +problems"
+let g:WhichKeyDesc_debug                   = "<leader>d +debug"
+let g:WhichKeyDesc_file                    = "<leader>f +file/find"
+let g:WhichKeyDesc_git                     = "<leader>g +git"
+let g:WhichKeyDesc_git_hunks               = "<leader>gh +hunks"
+let g:WhichKeyDesc_run                     = "<leader>r +run"
+let g:WhichKeyDesc_search                  = "<leader>s +search"
+let g:WhichKeyDesc_test                    = "<leader>t +test"
+let g:WhichKeyDesc_ui                      = "<leader>u +ui"
+let g:WhichKeyDesc_ui_bookmarks            = "<leader>ub +bookmarks"
+
+Plug 'machakann/vim-highlightedyank'
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+" Native IdeaVim extensions
+set commentary
+set surround
+set argtextobj
+set multiple-cursors
+set exchange
+set functextobj
+set classtextobj
+
+" Clear search and other highlights with Esc
+nnoremap <leader>h :nohlsearch<cr>
+
+" Escape exits Visual mode normally.
+xnoremap <Esc> <Esc>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nmap s <Action>(flash.search)
+xmap s <Action>(flash.search)
+
+map <C-s> <Action>(SaveAll)
+
+map <C-o> <Action>(Back)
+map <C-i> <Action>(Forward)
+
+map gs <Plug>CSurround
+map gI <Action>(GotoImplementation)
+map gK <Action>(ParameterInfo)
+map gy <Action>(TypeHierarchy)
+map gY <Action>(CallHierarchy)
+map gd <Action>(GotoDeclaration)
+map gD <Action>(GotoTypeDeclaration)
+map gr <Action>(FindUsages)
+map K  <Action>(ShowHoverInfo)
+map gt <Action>(GotoTest)
+map g; <Action>(JumpToLastChange)
+
+map H <Action>(PreviousTab)
+map L <Action>(NextTab)
+map [b <Action>(PreviousTab)
+map ]b <Action>(NextTab)
+
+map mj <Action>(MoveStatementDown)
+map mk <Action>(MoveStatementUp)
+vmap mj <Action>(MoveStatementDown)
+vmap mk <Action>(MoveStatementUp)
+
+map ]d <Action>(GotoNextError)
+map ]e <Action>(GotoNextError)
+map ]w <Action>(GotoNextError)
+map [d <Action>(GotoPreviousError)
+map [e <Action>(GotoPreviousError)
+map [w <Action>(GotoPreviousError)
+
+map <Leader>e <Action>(SelectInProjectView)
+map <leader>\| <Action>(SplitVertically)
+map <leader>- <Action>(SplitHorizontally)
+map <leader>, <Action>(RecentFiles)
+map <C-/> <Action>(ActivateTerminalToolWindow)
+map <leader>/ <Action>(SearchEverywhere)
+map <leader><space> <Action>(GotoFile)
+map <leader>` <Action>(NextTab)
+map <leader>. <Action>(ShowIntentionActions)
+map <leader>1 <Action>(GoToTab1)
+map <leader>2 <Action>(GoToTab2)
+map <leader>3 <Action>(GoToTab3)
+map <leader>4 <Action>(GoToTab4)
+map <leader>5 <Action>(GoToTab5)
+map <leader>6 <Action>(GoToTab6)
+map <leader>7 <Action>(GoToTab7)
+map <leader>8 <Action>(GoToTab8)
+map <leader>9 <Action>(GoToTab9)
+
+" ── File/Find ───────────────────────────────────────
+map <leader>fb <Action>(Switcher)
+map <leader>fB <Action>(GotoFile)
+map <leader>fc <Action>(GotoClass)
+map <leader>fe <Action>(ActivateProjectToolWindow)
+map <leader>fE <Action>(SelectInProjectView)
+map <leader>ff <Action>(GotoFile)
+map <leader>fF <Action>(GotoFile)
+map <leader>fr <Action>(RecentFiles)
+map <leader>fm <Action>(ShowNavBar)
+map <leader>fR <Action>(RecentChangedFiles)
+map <leader>fn <Action>(NewElementSamePlace)
+map <leader>ft <Action>(ActivateTerminalToolWindow)
+map <leader>fT <Action>(ActivateTerminalToolWindow)
+map <leader>fp <Action>(ManageRecentProjects)
+map <leader>fs <Action>(GotoSymbol)
+
+" ── Buffer ──────────────────────────────────────────
+map <leader>bb <Action>(Switcher)
+map <leader>bj <Action>(Switcher)
+map <leader>bd <Action>(CloseContent)
+map <leader>bD <Action>(CloseAllEditors)
+map <leader>bo <Action>(CloseAllEditorsButActive)
+map <leader>bp <Action>(PinActiveTabToggle)
+map <leader>bP <Action>(CloseAllUnpinnedEditors)
+map <leader>bl <Action>(CloseAllToTheLeft)
+map <leader>br <Action>(CloseAllToTheRight)
+
+" ── Code ────────────────────────────────────────────
+map <leader>ca <Action>(RefactoringMenu)
+map <leader>co <Action>(OptimizeImports)
+map <leader>cf <Action>(ReformatCode)
+map <leader>cr <Action>(RenameElement)
+map <leader>cR <Action>(RenameFile)
+map <leader>cd <Action>(ActivateProblemsViewToolWindow)
+map <leader>cDp <Action>(GotoPreviousError)
+map <leader>cDn <Action>(GotoNextError)
+map <leader>cs <Action>(ActivateStructureToolWindow)
+map <leader>cS <Action>(SurroundWith)
+map <leader>cq <Action>(ShowIntentionActions)
+map <leader>cQ <Action>(ShowErrorDescription)
+map <leader>cg <Action>(Generate)
+
+" ── Debug ───────────────────────────────────────────
+map <leader>da <Action>(Debug)
+map <leader>dA <Action>(Rerun)
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>dB <Action>(EditBreakpoint)
+map <leader>dc <Action>(Resume)
+map <leader>dC <Action>(RunToCursor)
+map <leader>di <Action>(StepInto)
+map <leader>do <Action>(StepOut)
+map <leader>dO <Action>(StepOver)
+map <leader>dt <Action>(Stop)
+map <leader>du <Action>(ActivateDebugToolWindow)
+map <leader>dr <Action>(EvaluateExpression)
+map <leader>de <Action>(EvaluateExpression)
+map <leader>dP <Action>(Pause)
+
+" ── Git ─────────────────────────────────────────────
+map <leader>ga <Action>(Vcs.QuickListPopupAction)
+map <leader>gA <Action>(Git.Branches)
+map <leader>gb <Action>(Annotate)
+map <leader>gB <Action>(Vcs.FileHistory.ContextMenu)
+map <leader>gc <Action>(CheckinProject)
+map <leader>gd <Action>(Compare.SameVersion)
+map <leader>gD <Action>(Git.CompareWithBranch)
+map <leader>gg <Action>(ActivateCommitToolWindow)
+map <leader>gf <Action>(Vcs.ShowTabbedFileHistory)
+map <leader>gl <Action>(Vcs.Show.Log)
+map <leader>gL <Action>(Vcs.Show.Log)
+map <leader>gp <Action>(Git.Push)
+map <leader>gP <Action>(Git.UpdateProject)
+map <leader>gs <Action>(Git.Status)
+map <leader>gS <Action>(Git.Stash)
+map <leader>ghp <Action>(VcsShowPrevChangeMarker)
+map <leader>ghn <Action>(VcsShowNextChangeMarker)
+map <leader>ghs <Action>(VcsShowCurrentChangeMarker)
+map <leader>ghr <Action>(Vcs.RollbackChangedLines)
+map <leader>ghc <Action>(CheckinFiles)
+
+" ── Search ──────────────────────────────────────────
+map <leader>ss <Action>(FileStructurePopup)
+map <leader>sS <Action>(GotoSymbol)
+map <leader>sb <Action>(Find)
+map <leader>sB <Action>(FindInPath)
+map <leader>sc <action>(GotoClass)
+map <leader>sd <action>(ActivateProblemsViewToolWindow)
+map <leader>sD <action>(ActivateProblemsViewToolWindow)
+map <leader>sg <Action>(SearchEverywhere)
+map <leader>sG <Action>(SearchEverywhere)
+map <leader>sl <Action>(RecentLocations)
+map <leader>sr <Action>(Replace)
+map <leader>sR <Action>(ReplaceInPath)
+map <leader>st <Action>(ActivateTODOToolWindow)
+map <leader>sT <Action>(ActivateTODOToolWindow)
+map <leader>sw <Action>(ToggleFindInSelection)
+map <leader>sW <Action>(ToggleFindInSelection)
+
+" ── Run ────────────────────────────────────────────
+map <leader>rr <Action>(Run)
+map <leader>rR <Action>(Rerun)
+map <leader>rn <Action>(ChooseRunConfiguration)
+
+" ── Test ────────────────────────────────────────────
+map <leader>tr <Action>(RunClass)
+map <leader>td <Action>(DebugClass)
+map <leader>tf <Action>(RerunFailedTests)
+
+" ── UI ──────────────────────────────────────────────
+map <leader>ubb <Action>(ToggleBookmark)
+map <leader>ubB <Action>(ToggleBookmarkWithMnemonic)
+map <leader>ubs <Action>(ShowBookmarks)
+map <leader>uc <Action>(QuickChangeScheme)
+map <leader>uf <Action>(EditorIncreaseFontSizeGlobal)
+map <leader>uF <Action>(EditorResetFontSizeGlobal)
+map <leader>uz <Action>(ToggleDistractionFreeMode)
+map <leader>uZ <Action>(ToggleFullScreen)
+map <leader>uh <Action>(HideSideWindows)
+map <leader>uq <Action>(CloseProject)
+map <leader>uQ <Action>(CloseAllProjects)
